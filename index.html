@@ -111,6 +111,36 @@
       </div>
     </header>
 
+    <button
+      id="cart-toggle-mobile"
+      type="button"
+      class="cart-toggle-mobile"
+      aria-haspopup="dialog"
+      aria-controls="cart-panel"
+      aria-expanded="false"
+      aria-label="Abrir carrito"
+    >
+      <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+        <path
+          d="M6.5 8h11l1 12h-13l1-12Z"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.7"
+          stroke-linecap="round"
+        />
+      </svg>
+      <span>Carrito</span>
+      <span id="cart-count-mobile" class="cart-count">0</span>
+      <span id="cart-total-hint-mobile" class="cart-total-hint" hidden></span>
+    </button>
+
     <main id="inicio">
       <section class="hero" aria-labelledby="hero-title">
         <div class="hero-inner">

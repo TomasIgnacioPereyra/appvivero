@@ -53,6 +53,8 @@ existente (catálogo desde CSV, carrito con localStorage, envío por WhatsApp, v
   accesible en móvil; nombre, cantidad, precio unitario, subtotal, total; incrementar/reducir,
   eliminar, vaciar, seguir comprando y enviar por WhatsApp.
 - El acceso muestra cantidad total de unidades y el importe acumulado.
+- En móvil, un acceso al carrito independiente de la cabecera queda flotante en la parte
+  inferior, con cantidad e importe visibles cuando corresponda, y respeta el área segura.
 - Sin duplicar lógica de precios/totales/persistencia (vive en `src/lib/cart.js`).
 
 ### WhatsApp

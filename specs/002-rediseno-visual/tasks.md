@@ -32,3 +32,4 @@ description: "Tasks: rediseño visual 002"
 - [X] T011 `npm test` + `npm run build` sin errores
 - [X] T012 Validación E2E en navegador: carga de imágenes/placeholder, búsqueda, filtros, cantidades, subtotales, total, persistencia, mensaje de WhatsApp, aviso sin número
 - [X] T013 Revisión responsive (320px, móvil, tablet, escritorio) + capturas
+- [X] T014 Mantener visible el acceso flotante al carrito en la parte inferior en móvil, respetando el área segura y sin cubrir contenido.

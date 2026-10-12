@@ -60,8 +60,11 @@ const els = {
   cartPanel: document.getElementById('cart-panel'),
   cartBackdrop: document.getElementById('cart-backdrop'),
   cartToggle: document.getElementById('cart-toggle'),
+  cartToggleMobile: document.getElementById('cart-toggle-mobile'),
   cartCount: document.getElementById('cart-count'),
   cartTotalHint: document.getElementById('cart-total-hint'),
+  cartCountMobile: document.getElementById('cart-count-mobile'),
+  cartTotalHintMobile: document.getElementById('cart-total-hint-mobile'),
   search: document.getElementById('search'),
   warning: document.getElementById('config-warning'),
   toast: document.getElementById('toast'),
@@ -92,13 +95,18 @@ function renderCartView() {
 
   const count = cartCount(state.cart);
   els.cartCount.textContent = String(count);
+  els.cartCountMobile.textContent = String(count);
 
   if (count > 0) {
     els.cartTotalHint.hidden = false;
     els.cartTotalHint.textContent = formatARS(cartTotal(state.cart));
+    els.cartTotalHintMobile.hidden = false;
+    els.cartTotalHintMobile.textContent = els.cartTotalHint.textContent;
   } else {
     els.cartTotalHint.hidden = true;
     els.cartTotalHint.textContent = '';
+    els.cartTotalHintMobile.hidden = true;
+    els.cartTotalHintMobile.textContent = '';
   }
 }
 
@@ -142,6 +150,7 @@ function openCart() {
   document.body.classList.add('cart-open', 'no-scroll');
   els.cartBackdrop.hidden = false;
   els.cartToggle.setAttribute('aria-expanded', 'true');
+  els.cartToggleMobile.setAttribute('aria-expanded', 'true');
   const closeBtn = els.cartPanel.querySelector('[data-action="close-cart"]');
   if (closeBtn) closeBtn.focus();
 }
@@ -150,6 +159,7 @@ function closeCart() {
   document.body.classList.remove('cart-open', 'no-scroll');
   els.cartBackdrop.hidden = true;
   els.cartToggle.setAttribute('aria-expanded', 'false');
+  els.cartToggleMobile.setAttribute('aria-expanded', 'false');
   if (cartOpener && typeof cartOpener.focus === 'function' && document.contains(cartOpener)) {
     cartOpener.focus();
   }
@@ -291,6 +301,7 @@ els.search.addEventListener('input', () => {
 });
 
 els.cartToggle.addEventListener('click', openCart);
+els.cartToggleMobile.addEventListener('click', openCart);
 els.cartBackdrop.addEventListener('click', closeCart);
 document.addEventListener('keydown', (event) => {
   if (event.key !== 'Escape') return;
