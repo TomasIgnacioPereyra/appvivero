@@ -12,6 +12,7 @@ const VALID_CSV = [
   ';;22880',
   'ARBOLES;CONSULTAR;consultar',
   'ARBOLES;PRECIO CERO;0',
+  'ARBOLES;PRECIO NEGATIVO;-10',
   '   ',
   'INTERIOR;POTUS 3LT;22880',
   'ARBOLES;POTUS 3LT;9999',
@@ -20,7 +21,7 @@ const VALID_CSV = [
 
 test('parseCatalog conserva solo las filas válidas y en orden', () => {
   const products = parseCatalog(VALID_CSV);
-  assert.equal(products.length, 5);
+  assert.equal(products.length, 6);
   assert.deepEqual(products[0], {
     categoria: 'ARBOLES',
     nombre: 'ACACIA BLANCA C/COPA 15LT',
@@ -28,6 +29,11 @@ test('parseCatalog conserva solo las filas válidas y en orden', () => {
   });
   assert.equal(products[1].precio, 31330);
   assert.equal(products[2].precio, 2730.5);
+  assert.deepEqual(products[3], {
+    categoria: 'ARBOLES',
+    nombre: 'PRECIO CERO',
+    precio: 0,
+  });
 });
 
 test('parseCatalog ignora encabezado, líneas vacías y filas malformadas', () => {
@@ -36,7 +42,7 @@ test('parseCatalog ignora encabezado, líneas vacías y filas malformadas', () =
   assert.ok(!nombres.includes('PRODUCTO'));
   assert.ok(!nombres.includes('SOLO DOS CAMPOS'));
   assert.ok(!nombres.includes('CONSULTAR'));
-  assert.ok(!nombres.includes('PRECIO CERO'));
+  assert.ok(!nombres.includes('PRECIO NEGATIVO'));
 });
 
 test('el mismo nombre en dos categorías son productos distintos', () => {

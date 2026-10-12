@@ -54,7 +54,8 @@ specs/               Spec, plan, tareas, contratos y validación (spec-kit)
 - Formato: UTF-8, separador `;`, encabezado `CATEGORIA;PRODUCTO;PRECIO`, precios en pesos argentinos.
 - Se importa como texto (`import csvRaw from '../productos.csv?raw'`) y se parsea en `src/lib/csv.js`.
 - Tolerancia: se ignoran encabezado, líneas vacías, filas con menos de 3 campos, precios no numéricos o
-  `<= 0`; los `;` extra dentro del nombre se conservan; los duplicados quedan una sola vez (gana la primera);
+  negativos; el precio `0` es válido; los `;` extra dentro del nombre se conservan; los duplicados quedan una sola vez
+  (gana la primera);
   se acepta BOM y saltos `\n` o `\r\n`.
 - Los precios pueden venir en formato argentino (`2.730,50`): siempre pasan por `parsePrice`.
 

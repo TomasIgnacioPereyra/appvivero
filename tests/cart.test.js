@@ -16,6 +16,7 @@ import { productId } from '../src/lib/csv.js';
 
 const ACACIA = { categoria: 'ARBOLES', nombre: 'ACACIA BLANCA', precio: 22880 };
 const ALOE = { categoria: 'SUCULENTAS', nombre: 'ALOE VERA', precio: 2730 };
+const PRECIO_CERO = { categoria: 'ARBOLES', nombre: 'PRECIO CERO', precio: 0 };
 const POTUS_ARBOL = { categoria: 'ARBOLES', nombre: 'POTUS', precio: 100 };
 const POTUS_INTERIOR = { categoria: 'INTERIOR', nombre: 'POTUS', precio: 200 };
 
@@ -85,6 +86,17 @@ test('cartTotal y cartCount calculan subtotales, total y contador', () => {
   assert.equal(cartCount([]), 0);
 });
 
+test('el carrito conserva productos con precio cero', () => {
+  const storage = fakeStorage();
+  const cart = addItem([], PRECIO_CERO, 2);
+  saveCart(storage, cart);
+
+  assert.equal(cart[0].precio, 0);
+  assert.equal(cartTotal(cart), 0);
+  assert.equal(cartCount(cart), 2);
+  assert.deepEqual(loadCart(storage), cart);
+});
+
 test('saveCart + loadCart hacen roundtrip completo', () => {
   const storage = fakeStorage();
   const cart = addItem([], ACACIA, 2);
@@ -103,6 +115,7 @@ test('loadCart tolera JSON corrupto, tipos inválidos y entradas basura', () => 
           CART_STORAGE_KEY,
           JSON.stringify([
             { categoria: 'ARBOLES', nombre: 'OK', precio: 10, cantidad: 2 },
+            { categoria: 'ARBOLES', nombre: 'GRATIS', precio: 0, cantidad: 1 },
             { categoria: '', nombre: 'SIN CATEGORIA', precio: 10, cantidad: 1 },
             { categoria: 'X', nombre: 'PRECIO NEGATIVO', precio: -5, cantidad: 1 },
             { categoria: 'X', nombre: 'CANTIDAD CERO', precio: 5, cantidad: 0 },
@@ -112,7 +125,7 @@ test('loadCart tolera JSON corrupto, tipos inválidos y entradas basura', () => 
         ],
       ])
     ).length,
-    1
+    2
   );
 });
 

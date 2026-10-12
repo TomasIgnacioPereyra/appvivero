@@ -85,7 +85,7 @@ export function loadCart(storage) {
           item.categoria &&
           item.nombre &&
           Number.isFinite(item.precio) &&
-          item.precio > 0 &&
+          item.precio >= 0 &&
           Number.isFinite(item.cantidad) &&
           item.cantidad >= MIN_QTY
       )

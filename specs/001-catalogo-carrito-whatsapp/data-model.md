@@ -10,12 +10,12 @@ Representa un artículo del catálogo. Origen: una fila válida de `productos.cs
 |-------|------|--------|--------|
 | `categoria` | string | CSV columna 1 | Requerido; `trim()`; texto tal cual figura en el CSV (ej.: `ÁRBOLES`). |
 | `nombre` | string | CSV columna 2 | Requerido; `trim()`; puede contener acentos, `Ñ`, comillas, paréntesis. |
-| `precio` | number | CSV columna 3 | Requerido; entero en ARS > 0 tras normalizar (`.` = separador de miles, `,` = decimales). |
+| `precio` | number | CSV columna 3 | Requerido; número en ARS ≥ 0 tras normalizar (`.` = separador de miles, `,` = decimales). |
 
 **Identidad**: `categoria + '|' + nombre` (un mismo nombre en dos categorías son dos
 productos distintos — edge case de la spec).
 
-**Fila inválida** (se ignora): menos de 3 campos, campo vacío, precio no numérico o ≤ 0.
+**Fila inválida** (se ignora): menos de 3 campos, campo vacío, precio no numérico o negativo.
 
 ## Categoria
 

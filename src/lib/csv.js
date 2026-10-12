@@ -29,7 +29,7 @@ export function parseCatalog(csvText) {
     if (!categoria || !nombre || !rawPrice) continue;
 
     const precio = parsePrice(rawPrice);
-    if (!Number.isFinite(precio) || precio <= 0) continue; // precio inválido: se ignora
+    if (!Number.isFinite(precio) || precio < 0) continue; // precio inválido: se ignora
 
     const producto = { categoria, nombre, precio };
     const id = productId(producto);
