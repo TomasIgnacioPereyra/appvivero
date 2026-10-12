@@ -1,0 +1,419 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Catálogo del vivero: plantas, árboles, aromáticas y más. Armá tu pedido y envialo por WhatsApp."
+    />
+    <title>Vivero — Catálogo de plantas y pedidos por WhatsApp</title>
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23244B35'/%3E%3Ctext x='16' y='22' font-family='sans-serif' font-size='16' font-weight='700' text-anchor='middle' fill='%23F6F3E9'%3EV%3C/text%3E%3C/svg%3E"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
+    <link rel="preconnect" href="https://live.staticflickr.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500..700&family=Manrope:wght@400..800&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#catalogo">Saltar al catálogo</a>
+    <div id="config-warning" class="config-warning" hidden></div>
+
+    <header class="site-header" id="site-header">
+      <div class="header-inner">
+        <a class="brand" href="#inicio">
+          <svg class="brand-mark" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+            <path
+              d="M16 28V14"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.4"
+              stroke-linecap="round"
+            />
+            <path
+              d="M16 16c.4-6 4-9.6 10.4-10.6C26.8 11.6 23 16 16 16Z"
+              fill="currentColor"
+              opacity=".85"
+            />
+            <path
+              d="M16 21c-.3-4.6-3-7.4-8-8.2C8.6 17.6 11.4 21 16 21Z"
+              fill="currentColor"
+              opacity=".5"
+            />
+          </svg>
+          <span class="shop-name" data-shop-name>Vivero</span>
+        </a>
+
+        <nav id="main-nav" class="main-nav" aria-label="Navegación principal">
+          <a href="#catalogo">Catálogo</a>
+          <a href="#vivero">El vivero</a>
+          <a href="#consejos">Consejos</a>
+          <a href="#ubicacion">Ubicación</a>
+          <a href="#contacto">Contacto</a>
+        </nav>
+
+        <div class="header-actions">
+          <button
+            id="cart-toggle"
+            type="button"
+            class="cart-toggle"
+            aria-haspopup="dialog"
+            aria-controls="cart-panel"
+            aria-expanded="false"
+            aria-label="Abrir carrito"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+              <path
+                d="M6.5 8h11l1 12h-13l1-12Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+              <path
+                d="M9.5 8V6.5a2.5 2.5 0 0 1 5 0V8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+            <span class="cart-toggle-label">Carrito</span>
+            <span id="cart-count" class="cart-count">0</span>
+            <span id="cart-total-hint" class="cart-total-hint" hidden></span>
+          </button>
+
+          <button
+            id="menu-toggle"
+            type="button"
+            class="menu-toggle"
+            aria-expanded="false"
+            aria-controls="main-nav"
+            aria-label="Abrir menú"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+              <path
+                d="M4 7h16M4 12h16M4 17h16"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <main id="inicio">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="hero-eyebrow">Plantas · Árboles · Aromáticas</p>
+            <h1 id="hero-title" class="hero-title">Tu próximo rincón verde empieza acá.</h1>
+            <p class="hero-text">
+              Descubrí plantas, árboles y todo lo que necesitás para darle vida a tus espacios.
+            </p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#catalogo">Explorar plantas</a>
+              <a class="btn btn-ghost" href="#consejos">Cómo elegir tu planta</a>
+            </div>
+            <p class="hero-note">
+              Elegí tus favoritas, armá el pedido y confirmalo por WhatsApp.
+            </p>
+          </div>
+          <div class="hero-media">
+            <img id="hero-img" class="hero-img" alt="" width="1024" height="683" />
+          </div>
+        </div>
+      </section>
+
+      <section id="catalogo" class="catalog-section" aria-labelledby="catalogo-title">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">Catálogo</p>
+            <h2 id="catalogo-title" class="section-title">Nuestras plantas</h2>
+            <p class="section-sub">Elegí tus plantas, sumalas al carrito y enviá el pedido por WhatsApp.</p>
+          </div>
+          <p id="catalog-status" class="catalog-status" role="status"></p>
+        </div>
+
+        <div class="toolbar">
+          <div class="search-wrap">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+              <circle
+                cx="11"
+                cy="11"
+                r="6.5"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+              />
+              <path
+                d="m16 16 4.2 4.2"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+            </svg>
+            <input
+              id="search"
+              type="search"
+              class="search"
+              placeholder="Buscar planta, árbol o aromática..."
+              aria-label="Buscar productos"
+              autocomplete="off"
+            />
+          </div>
+          <div id="categories" class="categories" role="group" aria-label="Filtrar por categoría"></div>
+        </div>
+
+        <div id="catalog" class="catalog" aria-live="polite"></div>
+      </section>
+
+      <section id="vivero" class="about-section" aria-labelledby="vivero-title">
+        <div class="about-inner">
+          <div class="about-media">
+            <img id="about-img" class="about-img" alt="" loading="lazy" decoding="async" width="1024" height="683" />
+          </div>
+          <div class="about-copy">
+            <p class="section-eyebrow">El vivero</p>
+            <h2 id="vivero-title" class="section-title">Plantas cuidadas, atención personalizada</h2>
+            <p class="about-text" data-shop-about></p>
+            <a class="btn btn-primary" href="#catalogo">Ver el catálogo</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="consejos" class="tips-section" aria-labelledby="consejos-title">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">Consejos</p>
+            <h2 id="consejos-title" class="section-title">Para elegir y cuidar tus plantas</h2>
+          </div>
+        </div>
+        <div class="tips-grid">
+          <article class="tip-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="tip-icon">
+              <circle cx="12" cy="12" r="4.2" fill="none" stroke="currentColor" stroke-width="1.7" />
+              <path
+                d="M12 3.5v2.2M12 18.3v2.2M3.5 12h2.2M18.3 12h2.2M6 6l1.6 1.6M16.4 16.4 18 18M18 6l-1.6 1.6M7.6 16.4 6 18"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+            <h3>Elegí según la luz</h3>
+            <p>Mirá cuánta luz natural recibe el lugar: sol directo, media sombra o interior luminoso. Cada planta tiene su punto justo.</p>
+          </article>
+          <article class="tip-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="tip-icon">
+              <path
+                d="M12 3.5c3.4 4.2 5.5 7 5.5 9.8a5.5 5.5 0 1 1-11 0c0-2.8 2.1-5.6 5.5-9.8Z"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linejoin="round"
+              />
+            </svg>
+            <h3>Regá con criterio</h3>
+            <p>Tocá la tierra antes de regar: si está húmeda, esperá. Es mejor quedarse corto que pasarse, sobre todo en macetas.</p>
+          </article>
+          <article class="tip-card">
+            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="tip-icon">
+              <path
+                d="M12 21v-8"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+              />
+              <path
+                d="M12 13c.3-4.4 2.9-7 7.6-7.7C19.3 9.7 16.6 13 12 13Z"
+                fill="currentColor"
+                opacity=".7"
+              />
+              <path
+                d="M12 17c-.2-3.4-2.2-5.4-6-6 .4 3.6 2.5 6 6 6Z"
+                fill="currentColor"
+                opacity=".45"
+              />
+            </svg>
+            <h3>Cuidá el trasplante</h3>
+            <p>Regá bien antes de trasplantar y elegí un macetero algo más grande. Las primeras semanas, evitá el sol fuerte del mediodía.</p>
+          </article>
+        </div>
+        <p class="tips-cta">
+          <a class="link-arrow" href="#catalogo">Encontrá tu planta ideal en el catálogo</a>
+        </p>
+      </section>
+
+      <section id="ubicacion" class="location-section" aria-labelledby="ubicacion-title">
+        <div class="section-head">
+          <div>
+            <p class="section-eyebrow">Ubicación</p>
+            <h2 id="ubicacion-title" class="section-title">Vení a conocernos</h2>
+            <p class="section-sub">
+              Estamos en el corazón de Las Rabonas, Córdoba. Consultá nuestra ubicación y
+              encontrá el camino para visitarnos.
+            </p>
+          </div>
+        </div>
+
+        <div class="location-grid">
+          <div class="location-card">
+            <span class="location-pin" aria-hidden="true">
+              <svg viewBox="0 0 24 24" focusable="false" class="icon">
+                <path
+                  d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 1 1 13 0c0 4.6-6.5 10-6.5 10Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <circle cx="12" cy="10.8" r="2.3" fill="currentColor" />
+              </svg>
+            </span>
+            <h3 class="location-title">
+              Encontranos en <span data-shop-locality-short>Las Rabonas</span>
+            </h3>
+            <p class="location-locality" data-shop-locality>Las Rabonas, Córdoba, Argentina</p>
+            <p class="location-address" data-shop-address hidden></p>
+            <p class="location-text">
+              Acercate a recorrer las plantas con calma y elegir la que mejor le queda a tu
+              espacio. Si querés, escribinos antes por WhatsApp y te esperamos.
+            </p>
+            <div class="location-actions">
+              <a
+                class="btn btn-primary"
+                data-maps-link
+                href="#ubicacion"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+                  <path
+                    d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 1 1 13 0c0 4.6-6.5 10-6.5 10Z"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.7"
+                    stroke-linejoin="round"
+                  />
+                  <circle cx="12" cy="10.8" r="2.3" fill="currentColor" />
+                </svg>
+                Cómo llegar
+              </a>
+              <a
+                class="link-arrow"
+                data-maps-link
+                href="#ubicacion"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                Abrir en Google Maps
+              </a>
+            </div>
+          </div>
+
+          <div class="map-column">
+            <div class="map-card">
+              <div class="map-fallback" aria-hidden="true">
+                <span class="map-fallback-pin">
+                  <svg viewBox="0 0 24 24" focusable="false" class="icon">
+                    <path
+                      d="M12 21s-6.5-5.4-6.5-10a6.5 6.5 0 1 1 13 0c0 4.6-6.5 10-6.5 10Z"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linejoin="round"
+                    />
+                    <circle cx="12" cy="10.8" r="2.3" fill="currentColor" />
+                  </svg>
+                </span>
+                <p>Mapa de referencia de la zona</p>
+                <p class="map-fallback-sub">Las Rabonas, Córdoba</p>
+              </div>
+              <iframe
+                id="map-frame"
+                class="map-frame"
+                title="Mapa de referencia de Las Rabonas, Córdoba"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade"
+                allowfullscreen
+              ></iframe>
+            </div>
+            <p class="map-note">
+              Mapa de referencia de la zona ·
+              <a data-maps-link href="#ubicacion" target="_blank" rel="noopener noreferrer">
+                Abrir en Google Maps
+              </a>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="contacto" class="contact-section" aria-labelledby="contacto-title">
+        <div class="contact-inner">
+          <div>
+            <p class="section-eyebrow section-eyebrow-light">Contacto y consultas</p>
+            <h2 id="contacto-title" class="section-title section-title-light">¿Te damos una mano para elegir?</h2>
+            <p class="contact-text">
+              Contanos qué espacio tenés y qué te gustaría lograr. Te respondemos por WhatsApp.
+            </p>
+          </div>
+          <div class="contact-actions">
+            <a
+              class="btn btn-sand"
+              data-contact-whatsapp
+              href="#contacto"
+              hidden
+              target="_blank"
+              rel="noopener"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
+                <path
+                  d="M12 3.6a8.4 8.4 0 0 0-7.2 12.7L3.6 20.4l4.2-1.1A8.4 8.4 0 1 0 12 3.6Z"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M8.8 9.1c.3-.8.7-.9 1.1-.9h.5l.9 1.9-.6.8c-.2.2-.2.4-.1.6.4.8 1.4 1.8 2.2 2.2.2.1.4.1.6-.1l.8-.6 1.9.9v.5c0 .4-.1.8-.9 1.1-.9.3-2.1.1-3.6-.8-1.4-.9-2.4-2-2.9-3-.5-.9-.5-2 .1-2.6Z"
+                  fill="currentColor"
+                />
+              </svg>
+              Consultar por WhatsApp
+            </a>
+            <p id="contact-fallback" class="contact-fallback" hidden></p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p class="footer-brand">
+          <span data-shop-name>Vivero</span> · Pedidos por WhatsApp
+        </p>
+        <p class="footer-meta">
+          <span id="footer-year"></span> · Fotografías: Unsplash y Flickr (dominio público / CC BY)
+        </p>
+      </div>
+    </footer>
+
+    <aside id="cart-panel" class="cart-panel" role="dialog" aria-modal="true" aria-label="Tu pedido"></aside>
+    <div id="cart-backdrop" class="cart-backdrop" hidden></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
