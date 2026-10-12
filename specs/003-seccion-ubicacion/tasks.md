@@ -23,3 +23,4 @@ description: "Tasks: sección de ubicación 003"
 - [X] T007 `npm test` + `npm run build`
 - [X] T008 Validación en navegador: enlaces (href/target/rel), iframe carga (sin errores de consola), 320px sin overflow, capturas móvil/escritorio
 - [X] T009 README: documentar dónde editar la dirección exacta cuando se confirme
+- [X] T010 Agregar las coordenadas confirmadas y mostrar el marcador en el mapa embebido y los enlaces externos.

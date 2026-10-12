@@ -19,6 +19,7 @@ import {
   SHOP_ABOUT,
   SHOP_LOCALITY,
   SHOP_ADDRESS,
+  MAPS_EMBED_URL,
   MAPS_URL,
 } from './config.js';
 import {
@@ -330,11 +331,10 @@ document.querySelectorAll('[data-maps-link]').forEach((link) => {
   link.href = MAPS_URL;
 });
 
-// Mapa embebido sin API key (output=embed). Si no carga, la sección queda
-// útil: la vista de referencia y los enlaces externos siguen funcionando.
+// Mapa embebido sin API key; las coordenadas muestran un marcador en el punto indicado.
 const mapFrame = document.getElementById('map-frame');
 if (mapFrame) {
-  mapFrame.src = `https://www.google.com/maps?q=${encodeURIComponent(SHOP_LOCALITY)}&z=13&output=embed`;
+  mapFrame.src = MAPS_EMBED_URL;
 }
 
 const yearEl = document.getElementById('footer-year');

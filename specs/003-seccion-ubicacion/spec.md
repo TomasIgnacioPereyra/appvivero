@@ -19,10 +19,10 @@ backend, sin API keys, y sin tocar catálogo/carrito/precios/WhatsApp.
   "Cómo llegar" y enlace "Abrir en Google Maps") + área de mapa (iframe `output=embed` sin API
   key, con respaldo si no carga).
 - Datos de ubicación centralizados en `src/config.js`: `SHOP_LOCALITY`, `SHOP_ADDRESS`
-  (pendiente de confirmación; si está vacía no se muestra dirección postal) y `MAPS_URL`
-  (enlace provisto por el usuario, no duplicado).
-- Enlaces externos con `target="_blank"` + `rel="noopener noreferrer"`; sin afirmar que las
-  coordenadas del enlace corresponden a la entrada exacta del vivero.
+  (si está vacía no se muestra dirección postal), `SHOP_COORDINATES` (punto exacto confirmado
+  por el usuario) y `MAPS_URL` derivado de esas coordenadas.
+- Enlaces externos con `target="_blank"` + `rel="noopener noreferrer"` que abren el mismo punto
+  marcado en el mapa.
 
 ## Restricciones
 
@@ -41,3 +41,5 @@ backend, sin API keys, y sin tocar catálogo/carrito/precios/WhatsApp.
 - **SC-004**: El iframe embebido carga sin API key; si falla, los enlaces externos siguen
   operativos.
 - **SC-005**: Ningún dato de dirección exacta inventado; `SHOP_ADDRESS` vacía = no se muestra.
+- **SC-006**: El iframe y los enlaces externos muestran el punto confirmado por el usuario con
+  el marcador de ubicación de Google Maps.
