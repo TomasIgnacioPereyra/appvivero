@@ -215,6 +215,19 @@ document.addEventListener('click', (event) => {
       renderCatalogView();
       break;
     }
+    case 'qty-decrease':
+    case 'qty-increase': {
+      const card = trigger.closest('.product-card');
+      const qtyInput = card ? card.querySelector('.qty') : null;
+      if (!qtyInput) return;
+      const current = Number(qtyInput.value);
+      const quantity = Number.isFinite(current)
+        ? Math.min(99, Math.max(1, Math.floor(current)))
+        : 1;
+      const adjustment = action === 'qty-increase' ? 1 : -1;
+      qtyInput.value = String(Math.min(99, Math.max(1, quantity + adjustment)));
+      break;
+    }
     case 'add': {
       const product = findProduct(id);
       if (!product) return;

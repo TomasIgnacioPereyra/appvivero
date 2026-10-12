@@ -140,18 +140,22 @@ function productCard(product) {
           <span class="product-price">${formatARS(product.precio)}</span>
         </div>
         <div class="product-actions">
-          <label class="qty-field">
-            <span class="visually-hidden">Cantidad de ${nombre}</span>
-            <input
-              class="qty"
-              type="number"
-              inputmode="numeric"
-              min="1"
-              max="99"
-              value="1"
-              aria-label="Cantidad de ${nombre}"
-            />
-          </label>
+          <div class="qty-stepper product-qty-stepper">
+            <button type="button" class="qty-btn" data-action="qty-decrease" aria-label="Restar una unidad de ${nombre}">−</button>
+            <label class="qty-field">
+              <span class="visually-hidden">Cantidad de ${nombre}</span>
+              <input
+                class="qty"
+                type="number"
+                inputmode="numeric"
+                min="1"
+                max="99"
+                value="1"
+                aria-label="Cantidad de ${nombre}"
+              />
+            </label>
+            <button type="button" class="qty-btn" data-action="qty-increase" aria-label="Sumar una unidad de ${nombre}">+</button>
+          </div>
           <button type="button" class="btn-add" data-action="add" data-id="${id}">
             <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false" class="icon">
               <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" />

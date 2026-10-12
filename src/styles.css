@@ -613,7 +613,7 @@ a {
   padding: 0;
   display: grid;
   gap: 14px;
-  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  grid-template-columns: 1fr;
 }
 
 @media (min-width: 700px) {
@@ -710,6 +710,14 @@ a {
   display: flex;
   gap: 8px;
   align-items: stretch;
+}
+
+.product-qty-stepper {
+  gap: 2px;
+}
+
+.product-qty-stepper .qty-btn {
+  flex: none;
 }
 
 .qty-field .qty {
