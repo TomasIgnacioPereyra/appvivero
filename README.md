@@ -96,6 +96,16 @@ npm run preview # servir la compilación como en producción
 Antes de publicar: `npm test` y `npm run build` deben pasar, y conviene repasar
 `specs/001-catalogo-carrito-whatsapp/quickstart.md` (validación end-to-end).
 
+### MCP para desarrollo en VS Code
+
+El archivo `.mcp.json` configura servidores MCP para este workspace: Chrome DevTools y
+Playwright para probar y depurar el sitio, Memory para guardar conocimiento local del proyecto,
+y Context7 para consultar documentación actualizada. VS Code puede pedir confirmar la confianza
+en cada servidor; revisá y aprobá solo los que quieras iniciar. La primera ejecución descarga
+los paquetes mediante `npx` y requiere conexión a internet. Memory guarda sus datos en
+`.mcp-memory.jsonl`, archivo excluido de Git. Chrome DevTools puede acceder al contenido del
+navegador que abre o inspecciona; evitá usarlo con sesiones o datos sensibles.
+
 ## Estructura
 
 ```text
