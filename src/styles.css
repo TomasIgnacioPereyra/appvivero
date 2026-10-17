@@ -317,7 +317,7 @@ a {
     display: inline;
   }
 
-  body {
+  .site-footer {
     padding-bottom: calc(84px + env(safe-area-inset-bottom));
   }
 }
