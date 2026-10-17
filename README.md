@@ -38,7 +38,7 @@ export const WHATSAPP_NUMBER = '5493511234567';
 
 ### 2. Actualizar precios o productos
 
-Editar `productos.csv` como planilla (Excel/LibreOffice) o editor de texto:
+Editar `productos.csv` con un editor de texto (por ejemplo VS Code) o como planilla:
 
 ```csv
 CATEGORIA;PRODUCTO;PRECIO;ID
@@ -67,7 +67,7 @@ productos.csv  →  ARBOLES;ACACIA BLANCA C/COPA 15LT;22880;1
 public/images/1.jpg   ←  foto de ese producto
 ```
 
-Para cambiar la foto de un producto, reemplazá ese archivo (JPG, ~1000 px de ancho). Si el archivo
+Para cambiar la foto de un producto, reemplazá ese archivo (JPG, hasta ~900 px de ancho). Si el archivo
 no existe o no carga, la tarjeta cae sola a la foto de la categoría y, si tampoco carga, al
 placeholder botánico: el precio y el botón de agregar nunca se ocultan. No hay que tocar código.
 
@@ -78,9 +78,11 @@ placeholder botánico: el precio y el botón de agregar nunca se ocultan. No hay
 2. En `src/data/images.js`, cambiar el `src` de esa categoría por `'./images/categoria-frutales.jpg'`.
 
 Las fotos por producto son de referencia de cada especie (no del ejemplar exacto que se entrega) y
-vienen de iNaturalist y de Wikipedia, solo con licencias que permiten uso comercial (CC0, dominio
-público, CC BY o CC BY-SA). La autoría y la licencia de cada archivo están en
-[CREDITOS-IMAGENES.md](CREDITOS-IMAGENES.md).
+vienen de iNaturalist y de Wikipedia. Mientras el sitio esté en modo de prueba (**no se venden las
+plantas**) se aceptan también licencias no comerciales (CC BY-NC y CC BY-ND), que quedan marcadas
+como *uso no comercial* en [CREDITOS-IMAGENES.md](CREDITOS-IMAGENES.md). Si el vivero empieza a
+vender de verdad, hay que rehacer esas fotos solo con licencias comerciales (CC0, dominio público,
+CC BY o CC BY-SA).
 
 Las fotos de categoría actuales son representativas (no del ejemplar exacto) y tienen estas
 licencias:

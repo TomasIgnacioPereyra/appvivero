@@ -128,7 +128,9 @@ specs/               Spec, plan, tareas, contratos y validación (spec-kit)
 - `productos.csv`: Excel/LibreOffice al guardar pasan el separador a `,` y leen `(1,8mt)` como número
   (`1.8mt`). El parser tolera las comas, pero el formato recomendado sigue siendo `;` y sin planilla.
   Si el sitio "no muestra ningún producto", revisá primero el formato del CSV.
-- Las fotos de `public/images/<ID>.jpg` son solo con licencias que permiten uso comercial (CC0,
-  dominio público, CC BY, CC BY-SA). Nunca agregues fotos CC BY-NC/ND: el sitio vende. Créditos y
-  licencia por archivo en `CREDITOS-IMAGENES.md`.
+- Las fotos de `public/images/<ID>.jpg` son de referencia de la especie, no del ejemplar que se
+  entrega. El sitio está en modo de prueba (no se venden las plantas), así que también se aceptan
+  licencias no comerciales: CC BY-NC, CC BY-NC-SA, CC BY-ND y CC BY-NC-ND. Las NC/ND quedan
+  marcadas en `CREDITOS-IMAGENES.md`; si el vivero pasa a vender, hay que rehacerlas con licencias
+  comerciales (CC0, dominio público, CC BY o CC BY-SA) corriendo el descargador sin `ALLOW_NC=1`.
 - Si un producto no tiene foto propia, la tarjeta usa la de la categoría; no es un error.

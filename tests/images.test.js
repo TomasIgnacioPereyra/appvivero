@@ -1,6 +1,6 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import { readFileSync } from 'node:fs';
+import { readFileSync, readdirSync } from 'node:fs';
 import { parseCatalog, productId } from '../src/lib/csv.js';
 import {
   CATEGORY_IMAGES,
@@ -82,4 +82,13 @@ test('todos los productos del CSV tienen ID válido para su foto local', () => {
   for (const producto of productos) {
     assert.match(localImageSrc(producto) ?? '', /^\.\/images\/\d+\.jpg$/);
   }
+});
+
+test('las fotos de public/images corresponden a IDs del CSV', () => {
+  const dir = new URL('../public/images/', import.meta.url);
+  const fotos = readdirSync(dir).filter((archivo) => /^\d+\.jpg$/.test(archivo));
+  assert.ok(fotos.length > 0, 'no hay fotos en public/images');
+  const ids = new Set(parseCatalog(csvText).map((producto) => producto.id));
+  const huerfanas = fotos.filter((archivo) => !ids.has(Number(archivo.replace('.jpg', ''))));
+  assert.deepEqual(huerfanas, [], `fotos sin producto en el CSV: ${huerfanas.join(', ')}`);
 });
