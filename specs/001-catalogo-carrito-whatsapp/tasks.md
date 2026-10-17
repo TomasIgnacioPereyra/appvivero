@@ -93,7 +93,7 @@ Proyecto único: `src/`, `tests/` en la raíz del repositorio (ver plan.md, Stru
 **Independent Test**: quickstart V4 (con número de prueba y con placeholder)
 
 - [X] T023 [US3] Implementar botón "Enviar pedido por WhatsApp" en `src/ui/render.js`: deshabilitado con carrito vacío (FR-009) y cuando `WHATSAPP_NUMBER` no está configurado (FR-012), con advertencia persistente visible en ese caso
-- [X] T024 [US3] Implementar acción de envío en `src/main.js`: `buildOrderMessage` + `buildWhatsAppUrl` de `src/lib/whatsapp.js`, apertura con `window.open(url, '_blank', 'noopener')`; el carrito NO se vacía automáticamente (data-model.md, estados del carrito)
+- [X] T024 [US3] Implementar acción de envío en `src/main.js`: `buildOrderMessage` + `buildWhatsAppUrl` de `src/lib/whatsapp.js`, apertura con `window.open(url, '_blank', 'noopener')`; tras abrir WhatsApp, vaciar el carrito y persistirlo (data-model.md, estados del carrito)
 - [X] T025 [US3] Verificar el mensaje generado contra el ejemplo exacto del contrato `contracts/pedido-whatsapp.md` (2×ACACIA + 1×ALOE → total `$ 48.490`)
 
 **Checkpoint**: flujo completo catálogo → carrito → WhatsApp operativo

@@ -283,7 +283,10 @@ document.addEventListener('click', (event) => {
       if (state.cart.length === 0 || !configured) return;
       const message = buildOrderMessage(state.cart, cartTotal(state.cart), SHOP_NAME);
       window.open(buildWhatsAppUrl(WHATSAPP_NUMBER, message), '_blank', 'noopener');
-      showToast('Se abrió WhatsApp con tu pedido listo para enviar.');
+      state.cart = [];
+      persist();
+      renderCartView();
+      showToast('Se abrió WhatsApp con tu pedido. El carrito se vació.');
       break;
     }
     case 'open-cart':

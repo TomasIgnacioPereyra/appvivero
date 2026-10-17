@@ -55,14 +55,14 @@ Producto + cantidad dentro del carrito.
 **Estados y transiciones**:
 
 ```text
-vacío ──agregar──▶ con ítems ──enviar por WhatsApp──▶ (carrito se mantiene)*
+vacío ──agregar──▶ con ítems ──enviar por WhatsApp──▶ vacío
   ▲                    │  ▲
   └──vaciar/quitar─────┘  └──seguir agregando──┘
 ```
 
-\* Decisión v1: tras abrir WhatsApp el carrito NO se vacía automáticamente (el envío real
-depende de que el cliente confirme en WhatsApp; vaciarlo perdería el pedido si no lo hizo).
-El cliente puede vaciarlo manualmente.
+Nota: al hacer clic en "Enviar pedido por WhatsApp" se abre WhatsApp con el pedido y el carrito
+se vacía automáticamente. La URL de WhatsApp contiene el mensaje completo, por lo que el pedido
+no se pierde si el cliente no confirma el envío en WhatsApp.
 
 **Persistencia**: `localStorage`, clave `appvivero.cart.v1`, valor JSON
 `[{ categoria, nombre, precio, cantidad }]`. Al cargar la app: parseo defensivo; entradas
