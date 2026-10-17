@@ -805,6 +805,11 @@ a {
 }
 
 @media (max-width: 699px) {
+  .categories {
+    flex-wrap: wrap;
+    overflow-x: visible;
+  }
+
   .product-card {
     border-radius: 14px;
   }
