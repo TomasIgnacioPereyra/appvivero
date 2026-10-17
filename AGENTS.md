@@ -31,6 +31,7 @@ npm run preview                   # sirve dist/ como en producción
 
 ```text
 productos.csv        Catálogo: única fuente de verdad de productos y precios
+public/images/       Fotos por producto: public/images/<ID>.jpg (ID = columna ID del CSV)
 index.html           Shell de la app
 src/config.js        Número de WhatsApp, nombre del vivero, textos, localidad, dirección, Maps
 src/main.js          Punto de entrada: carga el catálogo, conecta eventos, orquesta el render
@@ -41,7 +42,7 @@ src/lib/             Lógica pura y testeable (sin DOM)
   format.js          formatARS
   whatsapp.js        Mensaje del pedido y enlace wa.me
 src/ui/render.js     Render del catálogo, categorías y carrito; escapeHtml, filterProducts
-src/data/images.js   Fotos del hero, de la presentación y por categoría
+src/data/images.js   Fotos por ID (localImageSrc/getProductImage), por categoría, hero y presentación
 tests/               Tests unitarios (espejan src/lib y config)
 specs/               Spec, plan, tareas, contratos y validación (spec-kit)
 .specify/            Constitución, plantillas, scripts y registro de la feature activa
@@ -51,13 +52,19 @@ specs/               Spec, plan, tareas, contratos y validación (spec-kit)
 ## Contrato de datos: `productos.csv`
 
 - Es la **única** fuente de productos y precios. No hay (ni debe haber) productos hardcodeados en el código.
-- Formato: UTF-8, separador `;`, encabezado `CATEGORIA;PRODUCTO;PRECIO`, precios en pesos argentinos.
+- Formato: UTF-8, encabezado `CATEGORIA;PRODUCTO;PRECIO;ID`. Separador `;` (recomendado) o `,`
+  (tolerado: es lo que escriben Excel/LibreOffice al guardar; el parser lo detecta solo).
+- `ID`: entero > 0 autoincremental desde 1 en el orden de las filas. Es un dato de referencia; la app
+  sigue identificando productos con `productId` = `categoria|nombre`.
 - Se importa como texto (`import csvRaw from '../productos.csv?raw'`) y se parsea en `src/lib/csv.js`.
-- Tolerancia: se ignoran encabezado, líneas vacías, filas con menos de 3 campos, precios no numéricos o
-  negativos; el precio `0` es válido; los `;` extra dentro del nombre se conservan; los duplicados quedan una sola vez
-  (gana la primera);
-  se acepta BOM y saltos `\n` o `\r\n`.
+- Tolerancia: se ignoran encabezado, líneas vacías, filas con menos de 4 campos, ids no enteros o ≤ 0,
+  precios no numéricos o negativos; el precio `0` es válido; los separadores extra dentro del nombre se
+  conservan; los duplicados quedan una sola vez (gana la primera); se acepta BOM, saltos `\n` o `\r\n`,
+  separador `;` o `,` y campos entrecomillados (`"`).
 - Los precios pueden venir en formato argentino (`2.730,50`): siempre pasan por `parsePrice`.
+- **Fotos:** cada `ID` puede tener su foto en `public/images/<ID>.jpg`. La app la busca por ID
+  (`localImageSrc` en `src/data/images.js`) y, si falta, cae al override/categoría y luego al
+  placeholder. Autoría y licencias: `CREDITOS-IMAGENES.md`.
 
 ## Convenciones de código
 
@@ -118,3 +125,10 @@ specs/               Spec, plan, tareas, contratos y validación (spec-kit)
 - `localStorage` puede fallar (modo privado); `main.js` ya tolera el caso y mantiene ese patrón.
 - No commits, no `git push` y no despliegues salvo pedido explícito del usuario.
 - No modifiques precios, nombres del catálogo, el número de WhatsApp ni textos del negocio sin pedido explícito.
+- `productos.csv`: Excel/LibreOffice al guardar pasan el separador a `,` y leen `(1,8mt)` como número
+  (`1.8mt`). El parser tolera las comas, pero el formato recomendado sigue siendo `;` y sin planilla.
+  Si el sitio "no muestra ningún producto", revisá primero el formato del CSV.
+- Las fotos de `public/images/<ID>.jpg` son solo con licencias que permiten uso comercial (CC0,
+  dominio público, CC BY, CC BY-SA). Nunca agregues fotos CC BY-NC/ND: el sitio vende. Créditos y
+  licencia por archivo en `CREDITOS-IMAGENES.md`.
+- Si un producto no tiene foto propia, la tarjeta usa la de la categoría; no es un error.

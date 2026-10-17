@@ -1,15 +1,21 @@
 // ────────────────────────────────────────────────────────────────────
-// Imágenes representativas del catálogo (separadas de los datos comerciales)
+// Imágenes del catálogo (separadas de los datos comerciales)
 // ────────────────────────────────────────────────────────────────────
-// El CSV no tiene columna de imágenes. Este mapeo asigna a cada categoría una
-// fotografía real y acorde (no es la foto del producto exacto que se entrega).
+// Prioridad de la foto de un producto:
+//   1. Foto local por ID: `public/images/<id>.jpg` (el <id> es la columna ID
+//      de productos.csv). Es la foto de referencia de cada planta.
+//   2. Override de producto (PRODUCT_IMAGES), por si hay que pisar una foto.
+//   3. Foto de la categoría (CATEGORY_IMAGES).
+//   4. Placeholder botánico (lo resuelve la UI).
 //
-// Cómo usar fotos propias (prioridad local):
-//   1. Guardar el archivo en `public/imagenes/` (ej.: public/imagenes/arboles.jpg)
-//   2. Acá, cambiar el `src` por una ruta relativa: './imagenes/arboles.jpg'
-//   Las rutas relativas funcionan igual en Vercel y en GitHub Pages.
-//   Si una imagen no existe o falla, la tarjeta muestra un placeholder botánico
-//   (el precio y el botón de agregar nunca se ocultan).
+// Las rutas son relativas (`./images/...`) para que la misma compilación
+// funcione en la raíz de Vercel y en un subdirectorio de GitHub Pages.
+// Si la foto local no existe (404), la UI prueba el `fallbackSrc` (la foto de
+// la categoría) y, si tampoco carga, muestra el placeholder: el precio y el
+// botón de agregar nunca se ocultan.
+//
+// Para agregar o reemplazar una foto: guardar el archivo en `public/images/`
+// con el ID del producto (ej.: public/images/35.jpg, ver README.md).
 //
 // Créditos de las fotografías externas (ver también README.md):
 //   - "Glacier's Native Plant Nursery" — GlacierNPS (Flickr, Dominio Público 1.0)
@@ -85,11 +91,29 @@ export const PRODUCT_IMAGES = {
   },
 };
 
-// Devuelve { src, alt } del producto: override → categoría → null (placeholder).
+// Carpeta pública de las fotos por ID (Vite copia `public/` a la raíz del sitio).
+const LOCAL_IMAGE_DIR = './images/';
+
+// src de la foto local del producto, o null si no tiene un ID válido.
+export function localImageSrc(producto) {
+  const id = Number(producto?.id);
+  return Number.isInteger(id) && id > 0 ? `${LOCAL_IMAGE_DIR}${id}.jpg` : null;
+}
+
+// Devuelve { src, alt, fallbackSrc } del producto:
+// foto local por ID → override → categoría → null (placeholder).
+// `fallbackSrc` es lo que la UI prueba si la foto principal no carga.
 export function getProductImage(producto) {
-  return (
-    PRODUCT_IMAGES[productId(producto)] ??
-    CATEGORY_IMAGES[producto.categoria] ??
-    null
-  );
+  const base =
+    PRODUCT_IMAGES[productId(producto)] ?? CATEGORY_IMAGES[producto.categoria] ?? null;
+
+  const local = localImageSrc(producto);
+  if (!local) return base;
+
+  const nombre = typeof producto.nombre === 'string' ? producto.nombre.trim() : '';
+  return {
+    src: local,
+    alt: nombre ? `Foto de referencia de ${nombre}` : (base?.alt ?? 'Producto del vivero'),
+    fallbackSrc: base?.src ?? null,
+  };
 }

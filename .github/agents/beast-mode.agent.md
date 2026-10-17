@@ -45,7 +45,7 @@ Se derivan de `.specify/memory/constitution.md` (leelo antes de planificar cualq
 1. **Solo frontend.** Nada de servidor, base de datos, API propia ni servicios externos de tracking.
    Cualquier pedido que necesite backend se rechaza o se resuelve con una alternativa estática documentada.
 2. **CSV como fuente única.** Los productos no se hardcodean en el código. Actualizar el catálogo = editar
-   `productos.csv` (UTF-8, separador `;`, encabezado `CATEGORIA;PRODUCTO;PRECIO`, precios enteros en ARS).
+   `productos.csv` (UTF-8, separador `;`, encabezado `CATEGORIA;PRODUCTO;PRECIO;ID`, precios enteros en ARS).
    Filas vacías o malformadas se ignoran en silencio; duplicados: gana la primera.
 3. **Mobile-first.** El flujo catálogo → carrito → WhatsApp debe cerrarse en menos de 3 minutos en un
    celular. Objetivos táctiles ≥44px, tipografía legible, sin texto técnico visible al cliente.

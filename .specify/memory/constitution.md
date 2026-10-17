@@ -32,7 +32,8 @@ mantener el proyecto trivialmente desplegable por una persona no técnica.
 - `productos.csv` en la raíz del repositorio es la única fuente de verdad de productos; la
   aplicación lo lee directamente al compilar/cargar, sin copias ni versiones duplicadas.
 - El contrato del CSV es: codificación UTF-8, separador `;`, encabezado
-  `CATEGORIA;PRODUCTO;PRECIO`, precios enteros en pesos argentinos.
+  `CATEGORIA;PRODUCTO;PRECIO;ID`, precios enteros en pesos argentinos e `ID` entero > 0
+  autoincremental (dato de referencia).
 - Actualizar el catálogo MUST implicar solo editar el CSV y volver a publicar; los productos
   MUST NOT estar codificados (hardcodeados) en el código fuente.
 - Filas vacías o malformadas MUST ignorarse de forma tolerante sin romper la aplicación.

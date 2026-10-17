@@ -102,6 +102,12 @@ export function renderCatalog(container, { products, query, category }) {
   container.innerHTML = html;
 }
 
+// Atributo con la imagen a probar si la principal no carga (404), para que el
+// listener de `error` de main.js pueda degradar sin dejar la tarjeta rota.
+function fallbackAttr(image) {
+  return image?.fallbackSrc ? ` data-fallback-src="${escapeHtml(image.fallbackSrc)}"` : '';
+}
+
 function productCard(product) {
   const id = escapeHtml(productId(product));
   const nombre = escapeHtml(product.nombre);
@@ -116,7 +122,7 @@ function productCard(product) {
          decoding="async"
          width="800"
          height="600"
-         data-product-img
+         data-product-img${fallbackAttr(image)}
        />`
     : `<img
          class="product-img product-img-placeholder"
@@ -170,7 +176,7 @@ function productCard(product) {
 function cartThumb(item) {
   const image = getProductImage(item);
   const src = image ? escapeHtml(image.src) : PLACEHOLDER_URI;
-  return `<img class="cart-item-thumb" src="${src}" alt="" loading="lazy" decoding="async" width="96" height="96" />`;
+  return `<img class="cart-item-thumb" src="${src}" alt="" loading="lazy" decoding="async" width="96" height="96"${fallbackAttr(image)} />`;
 }
 
 export function renderCart(container, { items, configured }) {

@@ -41,25 +41,49 @@ export const WHATSAPP_NUMBER = '5493511234567';
 Editar `productos.csv` como planilla (Excel/LibreOffice) o editor de texto:
 
 ```csv
-CATEGORIA;PRODUCTO;PRECIO
-ARBOLES;ACACIA BLANCA C/COPA 15LT;22880
+CATEGORIA;PRODUCTO;PRECIO;ID
+ARBOLES;ACACIA BLANCA C/COPA 15LT;22880;1
 ```
 
-- Separador: punto y coma `;`. Codificación: UTF-8.
+- Separador: punto y coma `;` (recomendado). Codificación: UTF-8.
 - Guardar, volver a publicar y listo — no hay que tocar código.
+- La última columna `ID` es un número entero mayor a 0, autoincremental desde 1. Es solo un dato
+  de referencia: no se muestra en el sitio y no hace falta que sea correlativo.
 - Las filas mal escritas se ignoran solas (el resto del catálogo sigue funcionando).
 - No usar `;` dentro de nombres de productos.
+- **Planillas:** la app también acepta la coma `,` como separador, que es lo que escriben Excel y
+  LibreOffice al guardar. Si usás Calc, lo ideal es *Guardar como → CSV → Editar configuración de
+  filtro* con `;` (así no se tocan los números con coma decimal); si queda con comas, igual funciona.
+  Ojo: al guardar desde una planilla, los decimales con coma (ej. `2.730,50`) tienen que quedar
+  entre comillas (`"2.730,50"`) o el precio se pierde. Lo más seguro es editar el archivo como texto.
 
 ### 3. Cambiar las fotografías
 
-Las fotos del hero y de cada categoría se configuran en `src/data/images.js` (separado de los
-datos comerciales del CSV). Para usar fotos propias:
+**Fotos por producto (recomendado).** Cada producto tiene su foto en `public/images/`, con el
+nombre igual al `ID` de la fila del CSV:
 
-1. Guardar el archivo en `public/imagenes/` (ej.: `public/imagenes/frutales.jpg`).
-2. En `src/data/images.js`, cambiar el `src` de esa categoría por `'./imagenes/frutales.jpg'`.
+```text
+productos.csv  →  ARBOLES;ACACIA BLANCA C/COPA 15LT;22880;1
+public/images/1.jpg   ←  foto de ese producto
+```
 
-Las fotos actuales son representativas de cada categoría (no del ejemplar exacto que se
-entrega) y tienen estas licencias:
+Para cambiar la foto de un producto, reemplazá ese archivo (JPG, ~1000 px de ancho). Si el archivo
+no existe o no carga, la tarjeta cae sola a la foto de la categoría y, si tampoco carga, al
+placeholder botánico: el precio y el botón de agregar nunca se ocultan. No hay que tocar código.
+
+**Fotos de categoría, hero y presentación.** Se configuran en `src/data/images.js`
+(separadas de los datos comerciales del CSV):
+
+1. Guardar el archivo en `public/images/` (ej.: `public/images/categoria-frutales.jpg`).
+2. En `src/data/images.js`, cambiar el `src` de esa categoría por `'./images/categoria-frutales.jpg'`.
+
+Las fotos por producto son de referencia de cada especie (no del ejemplar exacto que se entrega) y
+vienen de iNaturalist y de Wikipedia, solo con licencias que permiten uso comercial (CC0, dominio
+público, CC BY o CC BY-SA). La autoría y la licencia de cada archivo están en
+[CREDITOS-IMAGENES.md](CREDITOS-IMAGENES.md).
+
+Las fotos de categoría actuales son representativas (no del ejemplar exacto) y tienen estas
+licencias:
 
 | Imagen | Autor/a | Licencia |
 |--------|---------|----------|
@@ -70,8 +94,8 @@ entrega) y tienen estas licencias:
 | Trepadoras ("Wall of roses") | Linda N. (Flickr) | CC BY 2.0 |
 | Árboles, arbustos, interior, plantines, suculentas y aloe | Unsplash | Licencia Unsplash |
 
-Si una imagen no carga, la tarjeta muestra un placeholder botánico y el precio y el botón de
-agregar siguen visibles.
+Si una imagen de categoría no carga, la tarjeta prueba primero la foto de la categoría y después
+muestra un placeholder botánico; el precio y el botón de agregar siguen visibles.
 
 ### 4. Publicar
 
@@ -110,14 +134,17 @@ navegador que abre o inspecciona; evitá usarlo con sesiones o datos sensibles.
 
 ```text
 productos.csv        Catálogo (fuente única de verdad)
+public/images/       Fotos por producto: <ID>.jpg (ID = columna ID del CSV)
 src/
   config.js          Número de WhatsApp y nombre del vivero
   main.js            Punto de entrada y eventos
   styles.css         Estilos mobile-first
   lib/               Lógica pura (CSV, carrito, formato, WhatsApp)
+  data/images.js     Fotos por ID, por categoría, hero y presentación
   ui/render.js       Render del catálogo y del carrito
 tests/               Tests unitarios (node --test)
 specs/               Especificación, plan, tareas y validación (spec-kit)
+CREDITOS-IMAGENES.md Autoría y licencia de las fotos del catálogo
 ```
 
 ## Requisitos funcionales cubiertos

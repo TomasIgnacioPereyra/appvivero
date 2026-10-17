@@ -25,8 +25,9 @@
 ## D3. Parser CSV tolerante
 
 - **Decision**: parser propio que: separa por `;`, ignora la fila de encabezado, ignora líneas
-  vacías o con menos de 3 campos, hace `trim()` de cada campo, normaliza precio
-  (`.` = miles se eliminan, `,` = decimales) y descarta filas cuyo precio no sea numérico > 0.
+  vacías o con menos de 4 campos, hace `trim()` de cada campo, normaliza precio
+  (`.` = miles se eliminan, `,` = decimales), lee el `id` de la última columna y descarta filas
+  cuyo precio no sea numérico ≥ 0 o cuyo `id` no sea entero > 0.
 - **Rationale**: el CSV se edita a mano en una planilla; la tolerancia evita que un error de
   tipeo rompa todo el sitio (FR spec, edge cases).
 - **Alternatives considered**: parser estricto (un error tira toda la carga); regex complejas

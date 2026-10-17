@@ -91,7 +91,14 @@ function renderCatalogView() {
 }
 
 function renderCartView() {
-  renderCart(els.cartPanel, { items: state.cart, configured });
+  // El carrito guardado no incluye el ID del producto (identidad = categoria|nombre):
+  // lo recuperamos del catálogo para poder mostrar la foto por ID en el carrito.
+  const items = state.cart.map((item) => {
+    const producto = products.find((p) => productId(p) === productId(item));
+    return producto ? { ...item, id: producto.id } : item;
+  });
+
+  renderCart(els.cartPanel, { items, configured });
 
   const count = cartCount(state.cart);
   els.cartCount.textContent = String(count);
@@ -191,8 +198,10 @@ function findItem(id) {
   return state.cart.find((item) => productId(item) === id);
 }
 
-// Fallback de imágenes: si una foto externa no carga, la tarjeta (o el hero)
-// muestra el placeholder botánico sin ocultar precio ni controles.
+// Fallback de imágenes: si la foto principal no carga (por ejemplo, una foto
+// local por ID que todavía no existe), se prueba el `fallbackSrc` (foto de la
+// categoría) y, si tampoco carga, el placeholder botánico. Nunca se ocultan el
+// precio ni los controles.
 document.addEventListener(
   'error',
   (event) => {
@@ -203,6 +212,13 @@ document.addEventListener(
       img.classList.contains('cart-item-thumb');
     const isHeroOrAbout = img.id === 'hero-img' || img.id === 'about-img';
     if (!isProductOrCart && !isHeroOrAbout) return;
+
+    const fallback = img.getAttribute('data-fallback-src');
+    if (fallback) {
+      img.removeAttribute('data-fallback-src');
+      img.src = fallback;
+      return;
+    }
 
     img.removeAttribute('data-product-img');
     img.src = PLACEHOLDER_URI;

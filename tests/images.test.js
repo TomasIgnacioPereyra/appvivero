@@ -8,6 +8,7 @@ import {
   HERO_IMAGE,
   ABOUT_IMAGE,
   getProductImage,
+  localImageSrc,
 } from '../src/data/images.js';
 
 const csvText = readFileSync(new URL('../productos.csv', import.meta.url), 'utf8');
@@ -49,4 +50,36 @@ test('getProductImage prioriza el override de producto y cae a la categoría', (
   assert.deepEqual(getProductImage(otro), CATEGORY_IMAGES.SUCULENTAS);
 
   assert.equal(getProductImage({ categoria: 'NO EXISTE', nombre: 'X' }), null);
+});
+
+test('localImageSrc arma la ruta public/images/<id>.jpg y rechaza IDs inválidos', () => {
+  assert.equal(localImageSrc({ id: 35 }), './images/35.jpg');
+  assert.equal(localImageSrc({ id: '35' }), './images/35.jpg');
+  for (const id of [0, -1, 1.5, 'x', null, undefined, NaN]) {
+    assert.equal(localImageSrc({ id }), null, `id inválido aceptado: ${id}`);
+  }
+  assert.equal(localImageSrc(null), null);
+});
+
+test('getProductImage prioriza la foto local y deja la categoría como fallback', () => {
+  const aloe = { id: 355, categoria: 'SUCULENTAS', nombre: 'ALOE VERA M14 CULTIVO' };
+  const image = getProductImage(aloe);
+  assert.equal(image.src, './images/355.jpg');
+  assert.equal(image.fallbackSrc, PRODUCT_IMAGES[productId(aloe)].src);
+  assert.ok(image.alt.includes('ALOE VERA M14 CULTIVO'), 'alt poco descriptivo');
+
+  const sinOverride = { id: 366, categoria: 'SUCULENTAS', nombre: 'SANSEVIERIA 3LT' };
+  assert.equal(getProductImage(sinOverride).src, './images/366.jpg');
+  assert.equal(getProductImage(sinOverride).fallbackSrc, CATEGORY_IMAGES.SUCULENTAS.src);
+
+  const sinCategoria = { id: 999, categoria: 'NO EXISTE', nombre: 'PLANTA RARA' };
+  assert.equal(getProductImage(sinCategoria).fallbackSrc, null);
+});
+
+test('todos los productos del CSV tienen ID válido para su foto local', () => {
+  const productos = parseCatalog(csvText);
+  assert.ok(productos.length > 0, 'el CSV no devolvió productos');
+  for (const producto of productos) {
+    assert.match(localImageSrc(producto) ?? '', /^\.\/images\/\d+\.jpg$/);
+  }
 });
