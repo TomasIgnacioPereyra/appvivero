@@ -10,7 +10,7 @@
 export const WHATSAPP_NUMBER = '5493544546284';
 
 // Nombre que aparece en el encabezado y en el mensaje del pedido.
-export const SHOP_NAME = 'Vivero El Gato Montés';
+export const SHOP_NAME = 'Vivero Gaston';
 
 // Texto de presentación de la sección "El vivero".
 // Es un texto genérico y editable: reemplazalo por la historia real del vivero.

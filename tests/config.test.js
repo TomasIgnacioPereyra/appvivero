@@ -1,12 +1,17 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {
+  SHOP_NAME,
   SHOP_LOCALITY,
   SHOP_ADDRESS,
   SHOP_COORDINATES,
   MAPS_URL,
   MAPS_EMBED_URL,
 } from '../src/config.js';
+
+test('SHOP_NAME contiene el nombre confirmado del vivero', () => {
+  assert.equal(SHOP_NAME, 'Vivero Gaston');
+});
 
 test('SHOP_LOCALITY está definida y no vacía', () => {
   assert.equal(typeof SHOP_LOCALITY, 'string');
